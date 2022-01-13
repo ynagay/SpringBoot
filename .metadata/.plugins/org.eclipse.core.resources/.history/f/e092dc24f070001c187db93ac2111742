@@ -1,0 +1,36 @@
+package com.jb.pma.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jb.pma.dao.EmployeeRepository;
+import com.jb.pma.entities.Employee;
+
+@Controller
+@RequestMapping("/employees")
+public class EmployeeController {
+	
+	@Autowired
+	EmployeeRepository empRepo;
+	
+	@RequestMapping("/new")
+	public String displayEmployeeForm(Model empModel) {
+		
+		Employee anEmployee = new Employee();
+		empModel.addAttribute("employee", anEmployee);
+		return "new-employee";
+	}
+	
+	@RequestMapping("/create")
+	public String createEmployee(Employee employee, Model empModel) {
+		
+		//this should handle saving to the database
+		empRepo.save(employee);
+		
+		//use a redirect to prevent duplicate submissions
+		return "redirect:/employees/new";
+	}
+
+}

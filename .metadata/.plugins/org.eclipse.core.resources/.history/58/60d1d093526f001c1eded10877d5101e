@@ -1,0 +1,5 @@
+package com.jb.demo.domain;
+
+public class Product {
+
+}

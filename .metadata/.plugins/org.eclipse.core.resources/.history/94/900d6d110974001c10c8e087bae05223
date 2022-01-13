@@ -1,0 +1,36 @@
+package com.jb.pma.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.jb.pma.dao.EmployeeRepository;
+import com.jb.pma.dao.ProjectRepository;
+import com.jb.pma.dto.ChartData;
+import com.jb.pma.dto.EmployeeProject;
+//import com.jb.pma.entities.Employee;
+//import com.jb.pma.entities.Project;
+
+@Controller
+public class HomeController {
+	
+	@Autowired
+	ProjectRepository proRepo;
+	
+	
+	@Autowired
+	EmployeeRepository empRepo;
+	
+	@GetMapping("/")
+	public String displayHome(Model model) {
+		List<ChartData> projectsLables = proRepo.projectStatus();
+		model.addAttribute("projectsLableList", projectsLables);
+		
+		List<EmployeeProject> employeesProjectCnt = empRepo.employeeProjects();
+		model.addAttribute("employeesListProjectCnt", employeesProjectCnt);
+		return "main/home";
+	}
+}

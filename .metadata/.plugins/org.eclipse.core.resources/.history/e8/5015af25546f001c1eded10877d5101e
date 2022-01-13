@@ -1,0 +1,5 @@
+package com.jb.demo.web;
+
+public class HomeController {
+
+}

@@ -1,0 +1,42 @@
+var chartDataStr =  decodeHtml(chartData);
+var chartJsonArray = json.PARSE(chartDataStr);
+
+var arrayLength = chartJsonArray.length;
+var numericData = [];
+var labelData = [];
+
+for(i=0; i < arrayLength; i++){
+	numericData[i] = chartJsonArray.value;
+	labelData[i] = chartJsonArray.label;
+}
+
+//For a pie chart
+new Chart(document.getElementById("myChart"),{
+  type: "pie",
+  data: {
+    labels: [
+    'January',
+    'February',
+    'March'
+  ],
+    datasets:  [{
+      label: 'My First dataset',
+      backgroundColor: ["red", "green","blue"],
+      borderColor: 'rgb(255, 99, 132)',
+      data: [5, 10, 30],
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "World Wide Wine Production"
+    }
+  }
+});
+
+//"[{"value": 1, "label":"COMPLITED"},{"value": 2, "label":"INPROGRESS"},{"value": 1, "label":"NOTSTARTED"}]"
+function decodeHtml(html){
+	var txt = document.crateElement("textarea");
+	txt.innerHTML = html;
+	return txt.value;
+}
