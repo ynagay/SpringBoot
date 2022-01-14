@@ -12,12 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Employee {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //IDENTITY - leave id generation to database AUTO - Hibernate generate id sequence
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE) //IDENTITY - leave id generation to database AUTO - Hibernate generate id sequence
+	@GeneratedValue(generator = "employee_seq")
+	//@SequenceGenerator(name="employee_seq")
+	
 	private long employeeId;
 	
 	private String firstName;
