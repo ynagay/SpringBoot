@@ -1,8 +1,0 @@
-package com.jb.pma.dto;
-
-public interface ProjectLabele {
-	
-	public String getLable();
-	public int getValue();
-
-}

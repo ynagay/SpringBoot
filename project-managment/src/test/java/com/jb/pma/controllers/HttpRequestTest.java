@@ -14,7 +14,13 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+//		webEnvironment = WebEnvironment.RANDOM_PORT
+		  webEnvironment = WebEnvironment.DEFINED_PORT,
+		  properties = {
+		    "server.port=8042",
+		    "management.server.port=9042"
+		  })
 public class HttpRequestTest {
 	
 	@LocalServerPort

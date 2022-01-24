@@ -10,24 +10,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-import com.jb.pma.dao.EmployeeRepository;
-import com.jb.pma.dao.ProjectRepository;
+//import com.jb.pma.dao.EmployeeRepository;
+//import com.jb.pma.dao.ProjectRepository;
 import com.jb.pma.entities.Employee;
 import com.jb.pma.entities.Project;
+import com.jb.pma.services.EmployeeService;
+import com.jb.pma.services.ProjectService;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 	
 	@Autowired
-	ProjectRepository proRepo;
+	ProjectService proService;
 	
 	@Autowired
-	EmployeeRepository empRepo;
+	EmployeeService empService;
 	
 	@GetMapping
 	public String displayProjects(Model model) {
-		List <Project> projects = proRepo.findAll();
+		List <Project> projects = proService.getAll();
 		model.addAttribute("projectsList", projects);
 		return "projects/projects-home";
 	}
@@ -36,7 +38,7 @@ public class ProjectController {
 	public String displayProjectForm(Model model) {
 		
 		Project aProject = new Project();
-		List <Employee> employees = empRepo.findAll();
+		List <Employee> employees = empService.getAll();
 		model.addAttribute("project", aProject);
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project";
@@ -48,10 +50,10 @@ public class ProjectController {
 			Model model) {
 		
 		//this should handle saving to the database
-		proRepo.save(project);
+		proService.save(project);
 		
 		/*
-		 * //to save employees associated wiyh project Iterable <Employee>
+		 * //to save employees associated with project Iterable <Employee>
 		 * chosenEmployee = empRepo.findAllById(employees);
 		 * 
 		 * for(Employee emp : chosenEmployee) { emp.setProject(project);
