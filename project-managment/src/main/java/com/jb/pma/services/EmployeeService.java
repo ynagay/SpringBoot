@@ -16,7 +16,7 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository empRepo;
 
-	public List<Employee> getAll() {
+	public Iterable<Employee> getAll() {
 		return empRepo.findAll();
 	}
 

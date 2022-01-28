@@ -39,7 +39,7 @@ public class HomeController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		List<Project> project = proRepo.findAll();
+		Iterable<Project> project = proRepo.findAll();
 		model.addAttribute("projectList", project);
 		
 		List<ChartData> projectsData = proRepo.projectStatus();

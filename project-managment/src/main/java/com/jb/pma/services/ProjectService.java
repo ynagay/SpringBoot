@@ -15,7 +15,7 @@ public class ProjectService {
 	@Autowired
 	ProjectRepository proRepo;
 
-	public List<Project> getAll() {
+	public Iterable<Project> getAll() {
 		return proRepo.findAll();
 	}
 
