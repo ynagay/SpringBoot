@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jb.pma.dto.TimeChartData;
 //import com.jb.pma.dao.EmployeeRepository;
 //import com.jb.pma.dao.ProjectRepository;
 import com.jb.pma.entities.Employee;
@@ -29,7 +31,7 @@ public class ProjectController {
 	
 	@GetMapping
 	public String displayProjects(Model model) {
-		List <Project> projects = proService.getAll();
+		Iterable<Project> projects = proService.getAll();
 		model.addAttribute("projectsList", projects);
 		return "projects/projects-home";
 	}
@@ -38,7 +40,7 @@ public class ProjectController {
 	public String displayProjectForm(Model model) {
 		
 		Project aProject = new Project();
-		List <Employee> employees = empService.getAll();
+		Iterable<Employee> employees = empService.getAll();
 		model.addAttribute("project", aProject);
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project";
@@ -63,6 +65,22 @@ public class ProjectController {
 		//use a redirect to prevent duplicate submissions
 		return "redirect:/projects";
 		
+	}
+	
+	@GetMapping("/timelines")
+	public String displayProjectTimelines(Model model) throws JsonProcessingException {
+		
+		List<TimeChartData> timelineData = proService.getTimeData();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonTimelineString = objectMapper.writeValueAsString(timelineData);
+		
+		System.out.println("-------------project timeline");
+		System.out.println(jsonTimelineString);
+		
+		model.addAttribute("projectTimeList", jsonTimelineString);
+		
+		return "projects/project-timelines";
 	}
 
 }

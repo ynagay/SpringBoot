@@ -23,14 +23,18 @@
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr> 
-				<th>Project Name </th>
-				<th> Project Stage </th>
+				<th>Project Name</th>
+				<th>Project Stage</th>
+				<th>Project Start Date</th>
+				<th>Project End Date</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="aProject : ${projectsList}">
 				<td th:text="${aProject.name}"/>
 				<td th:text="${aProject.stage}"/>
+				<td th:text="${aProject.startDate}"/>
+				<td th:text="${aProject.endDate}"/>
 			</tr>
 		</tbody>
 	</table>

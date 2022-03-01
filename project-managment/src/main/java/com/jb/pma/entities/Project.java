@@ -1,19 +1,21 @@
 package com.jb.pma.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+//import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 //import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+//import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +31,12 @@ public class Project {
 	private String name;
 	private String stage; //NOTSTARTED, COMPLETED, INPROGRESS
 	private String description;
+	
+	@NotBlank(message="Date can not be empty.")
+	private Date startDate;
+	
+	@NotBlank(message="Date can not be empty.")
+	private Date endDate;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
 			fetch = FetchType.LAZY)
@@ -96,4 +104,19 @@ public class Project {
 		employees.add(emp);
 	}
 
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 }

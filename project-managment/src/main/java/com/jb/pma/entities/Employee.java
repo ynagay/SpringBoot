@@ -15,10 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jb.pma.validators.UniqueValue;
 
 @Entity
 public class Employee {
@@ -30,16 +32,18 @@ public class Employee {
 	
 	private long employeeId;
 	
-	@NotNull
+	@NotBlank(message="Must give a first name.")
 	@Size(min=2, max=50)
 	private String firstName;
 	
-	@NotNull
+	@NotBlank(message="Must give a last name.")
 	@Size(min=1, max=50)
 	private String lastName;
 	
-	@Email
-	@Column(unique = true, nullable = false)
+	@NotBlank
+	@Email(message="Must be a valid email address.")
+//	@Column(unique = true, nullable = false)
+	@UniqueValue
 	private String email;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
